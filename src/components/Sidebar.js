@@ -11,7 +11,7 @@ import SidebarChat from "./SidebarChat";
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
   useEffect(() => {
-    db.collection("rooms").onSnapshot((snapshot) => {
+    const unsbuscribe = db.collection("rooms").onSnapshot((snapshot) => {
       setRooms(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -19,6 +19,9 @@ const Sidebar = () => {
         }))
       );
     });
+    return () => {
+        unsbuscribe()
+    }
   }, []);
   return (
     <div className="sidebar">
