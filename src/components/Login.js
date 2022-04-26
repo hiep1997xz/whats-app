@@ -16,6 +16,12 @@ const Login = () => {
           type: actionsTypes.SET_USER,
           user: result.user,
         });
+        dispatch({
+          type: actionsTypes.SET_SESSION,
+          uid: result.user.uid,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        });
       })
       .catch((error) => alert(error.message));
   };
