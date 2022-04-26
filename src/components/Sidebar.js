@@ -5,11 +5,15 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import React, { useEffect, useState } from "react";
 import db from "../firebase";
+import { useStateValue } from "../StateProvide";
 import "./Sidebar.css";
 import SidebarChat from "./SidebarChat";
 
 const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
+  const [{user}, dispatch] = useStateValue();
+  console.log(user);
+
   useEffect(() => {
     const unsbuscribe = db.collection("rooms").onSnapshot((snapshot) => {
       setRooms(
@@ -26,7 +30,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar />
+        <Avatar src={user?.photoURL} />
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />
